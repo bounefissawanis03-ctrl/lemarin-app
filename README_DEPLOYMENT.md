@@ -33,6 +33,8 @@ Pour obtenir un lien public rapidement, je recommande un service comme Render, R
    - `DATABASE_PATH` = `./database/lemarin.db`
 6. Déployer.
 
+> Note : le serveur Express du projet lit maintenant correctement `DATABASE_PATH` pour Render et les autres environnements.
+
 L'application sera disponible à l'adresse fournie par Render, par exemple : `https://nom-de-ton-app.onrender.com`
 
 ## Déploiement avec Docker
