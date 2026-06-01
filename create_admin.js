@@ -33,7 +33,11 @@ function parseArgs() {
       process.exit(1);
     }
 
-    const dbPath = process.env.DATABASE_PATH || path.join(__dirname, 'database', 'lemarin.db');
+    const dbPath = process.env.DATABASE_PATH
+      ? path.isAbsolute(process.env.DATABASE_PATH)
+        ? process.env.DATABASE_PATH
+        : path.resolve(__dirname, process.env.DATABASE_PATH)
+      : path.join(__dirname, 'database', 'lemarin.db');
     if (!fs.existsSync(dbPath)) {
       console.error('Database file not found at', dbPath);
       process.exit(1);
@@ -56,7 +60,7 @@ function parseArgs() {
           process.exit(1);
         }
 
-        const stmt = db.prepare('INSERT INTO admins(email, password) VALUES(?, ?)');
+        const stmt = db.prepare('INSERT INTO admins(email, passwordHash) VALUES(?, ?)');
         stmt.run(email, hash, function(err) {
           if (err) {
             console.error('Insert error:', err.message);

@@ -2,10 +2,15 @@ const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 
 // Database file location
-const dbPath = path.resolve(__dirname, '../../database/lemarin.db');
+const fs = require('fs');
+const defaultDbPath = path.resolve(__dirname, '../../database/lemarin.db');
+const dbPath = process.env.DATABASE_PATH
+  ? path.isAbsolute(process.env.DATABASE_PATH)
+    ? process.env.DATABASE_PATH
+    : path.resolve(__dirname, '../../', process.env.DATABASE_PATH)
+  : defaultDbPath;
 
 // Ensure database directory exists
-const fs = require('fs');
 const dbDir = path.dirname(dbPath);
 if (!fs.existsSync(dbDir)) {
   fs.mkdirSync(dbDir, { recursive: true });
