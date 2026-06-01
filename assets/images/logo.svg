@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="logoTitle logoDesc">
+  <title id="logoTitle">Le Marin Hôtel</title>
+  <desc id="logoDesc">Anchor logo for Le Marin Hôtel</desc>
+  <circle cx="60" cy="20" r="10" fill="none" stroke="#c9a84c" stroke-width="4"/>
+  <line x1="60" y1="30" x2="60" y2="85" stroke="#c9a84c" stroke-width="4"/>
+  <path d="M30 50 Q20 55 22 70 Q24 85 60 110 Q96 85 98 70 Q100 55 90 50" fill="none" stroke="#c9a84c" stroke-width="4"/>
+  <line x1="30" y1="50" x2="90" y2="50" stroke="#c9a84c" stroke-width="4"/>
+  <circle cx="60" cy="20" r="4" fill="#c9a84c"/>
+  <path d="M22 100 Q35 110 60 100 Q85 110 98 100" fill="none" stroke="#c9a84c" stroke-width="2" opacity="0.7"/>
+</svg>
