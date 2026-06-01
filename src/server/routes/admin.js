@@ -39,6 +39,11 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Validate current admin token
+router.get('/me', auth.verifyToken, async (req, res) => {
+  res.json({ id: req.user.id, email: req.user.email });
+});
+
 // Get list of admins (protected)
 router.get('/', auth.verifyToken, async (req, res) => {
   try {

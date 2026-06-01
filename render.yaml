@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: le-marin-hotel
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: JWT_SECRET
+        fromSecret: JWT_SECRET
+      - key: PORT
+        value: "3000"
+      - key: DATABASE_PATH
+        value: "./database/lemarin.db"

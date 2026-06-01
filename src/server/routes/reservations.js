@@ -7,9 +7,9 @@ const auth = require('../middleware/auth');
 // Create new reservation (public)
 router.post('/', async (req, res) => {
   try {
-    const {firstName, lastName, email, phone, roomType, checkIn, checkOut, guests, notes} = req.body;
-    const result = await db.run(`INSERT INTO reservations (firstName, lastName, email, phone, roomType, checkIn, checkOut, guests, notes) VALUES (?,?,?,?,?,?,?,?,?)`,
-      [firstName, lastName, email, phone, roomType, checkIn, checkOut, guests, notes]
+    const {firstName, lastName, email, phone, roomType, checkIn, checkOut, guests, notes, status = 'pending'} = req.body;
+    const result = await db.run(`INSERT INTO reservations (firstName, lastName, email, phone, roomType, checkIn, checkOut, guests, notes, status) VALUES (?,?,?,?,?,?,?,?,?,?)`,
+      [firstName, lastName, email, phone, roomType, checkIn, checkOut, guests, notes, status]
     );
     res.status(201).json({id: result.lastID});
   } catch (e) {
@@ -38,6 +38,32 @@ router.get('/:id', auth.verifyToken, async (req, res) => {
   } catch (e) {
     console.error(e);
     res.status(500).json({error: 'Database error'});
+  }
+});
+
+// Update reservation status (admin only)
+router.put('/:id', auth.verifyToken, async (req, res) => {
+  try {
+    const { status } = req.body;
+    const validStates = ['pending', 'confirmed', 'cancelled'];
+    if (!validStates.includes(status)) return res.status(400).json({ error: 'Invalid reservation status' });
+    const result = await db.run('UPDATE reservations SET status = ? WHERE id = ?', [status, req.params.id]);
+    if (result.changes === 0) return res.status(404).json({ error: 'Reservation not found' });
+    res.json({ message: 'Reservation updated' });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+// Delete all reservations (admin only)
+router.delete('/', auth.verifyToken, async (req, res) => {
+  try {
+    await db.run('DELETE FROM reservations');
+    res.json({ message: 'All reservations deleted' });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Database error' });
   }
 });
 

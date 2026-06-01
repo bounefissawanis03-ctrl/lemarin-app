@@ -449,98 +449,169 @@
 LM_DB.init();
 
 // Check if already logged in
-if (LM_DB.Auth.isLoggedIn()) {
-  showDashboard(LM_DB.Auth.getSession());
+const ADMIN_API = '/api/admins';
+
+async function verifyAdminSession() {
+  const token = sessionStorage.getItem('lm_admin_token');
+  if (!token) return false;
+  try {
+    const res = await fetch(`${ADMIN_API}/me`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (!res.ok) {
+      sessionStorage.removeItem('lm_admin_token');
+      LM_DB.Auth.endSession();
+      return false;
+    }
+    const admin = await res.json();
+    LM_DB.Auth.startSession({ username: admin.email, email: admin.email });
+    return true;
+  } catch (err) {
+    console.error('Session validation failed:', err);
+    sessionStorage.removeItem('lm_admin_token');
+    LM_DB.Auth.endSession();
+    return false;
+  }
 }
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const valid = await verifyAdminSession();
+  if (valid) {
+    showDashboard(LM_DB.Auth.getSession());
+  } else {
+    document.getElementById('dashboard').style.display = 'none';
+  }
+});
 
 function handleLogin(e) {
   e.preventDefault();
   const user = document.getElementById('loginUser').value.trim();
   const pass = document.getElementById('loginPass').value;
-  const admin = LM_DB.Auth.login(user, pass);
-  if (admin) {
-    LM_DB.Auth.startSession(admin);
-    showDashboard(admin);
-  } else {
-    document.getElementById('loginError').textContent = 'Identifiants incorrects';
-    setTimeout(() => document.getElementById('loginError').textContent = '', 3000);
-  }
+  fetch(`${ADMIN_API}/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: user, password: pass })
+  })
+    .then(async res => {
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error || 'Identifiants incorrects');
+      }
+      return res.json();
+    })
+    .then(data => {
+      sessionStorage.setItem('lm_admin_token', data.token);
+      LM_DB.Auth.startSession({ username: user, email: user });
+      showDashboard(LM_DB.Auth.getSession());
+    })
+    .catch(err => {
+      document.getElementById('loginError').textContent = err.message;
+      setTimeout(() => document.getElementById('loginError').textContent = '', 3000);
+    });
 }
 
 function handleLogout() {
   LM_DB.Auth.endSession();
+  sessionStorage.removeItem('lm_admin_token');
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('dashboard').style.display = 'none';
 }
 
-function showDashboard(admin) {
+let adminReservations = [];
+let adminReviews = [];
+
+async function fetchWithAuth(path, options = {}) {
+  const token = sessionStorage.getItem('lm_admin_token');
+  if (!token) throw new Error('Non autorisé');
+  const headers = { ...(options.headers || {}), 'Authorization': `Bearer ${token}` };
+  const response = await fetch(`/api${path}`, { ...options, headers });
+  if (response.status === 401 || response.status === 403) {
+    handleLogout();
+    throw new Error('Session expirée. Veuillez vous reconnecter.');
+  }
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Erreur API');
+  }
+  return response.json();
+}
+
+async function showDashboard(admin) {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('dashboard').style.display = 'block';
   document.getElementById('dashUserName').textContent = admin.nom || admin.username;
-  refreshAll();
+  await refreshAll();
 }
 
-function refreshAll() {
-  refreshStats();
-  refreshReservations();
-  refreshReviews();
+async function refreshAll() {
+  await Promise.all([refreshStats(), refreshReservations(), refreshReviews()]);
 }
 
-function refreshStats() {
-  const res = LM_DB.Reservations.getAll();
-  const reviews = LM_DB.Reviews.getAll();
-  document.getElementById('statTotal').textContent = res.length;
-  document.getElementById('statPending').textContent = res.filter(r => r.status === 'pending').length;
-  document.getElementById('statConfirmed').textContent = res.filter(r => r.status === 'confirmed').length;
-  
-  // Calculate revenue: sum the price of confirmed reservations
-  const revenue = res.filter(r => r.status === 'confirmed').reduce((sum, r) => {
-    if (r.prixTotal) return sum + (parseInt(r.prixTotal) || 0);
-    const calc = LM_DB.Cart.calculateTotal(r.chambre, r.checkin, r.checkout);
-    return sum + calc.total;
+async function refreshStats() {
+  adminReservations = await fetchWithAuth('/reservations');
+  adminReviews = await fetchWithAuth('/reviews/admin').catch(() => []);
+
+  document.getElementById('statTotal').textContent = adminReservations.length;
+  document.getElementById('statPending').textContent = adminReservations.filter(r => r.status === 'pending').length;
+  document.getElementById('statConfirmed').textContent = adminReservations.filter(r => r.status === 'confirmed').length;
+
+  const revenue = adminReservations.filter(r => r.status === 'confirmed').reduce((sum, r) => {
+    const price = Number(r.prixTotal || r.prix || r.total || 0);
+    return sum + (Number.isFinite(price) ? price : 0);
   }, 0);
-  
+
   document.getElementById('statRevenue').textContent = revenue.toLocaleString('fr-DZ') + ' DA';
-  document.getElementById('statReviews').textContent = reviews.length;
-  document.getElementById('statAvgRating').textContent = LM_DB.Reviews.getAvgRating();
+  document.getElementById('statReviews').textContent = adminReviews.length;
+  document.getElementById('statAvgRating').textContent = adminReviews.length ? (adminReviews.reduce((s, r) => s + Number(r.rating || r.note || 0), 0) / adminReviews.length).toFixed(1) : '0.0';
 }
 
-function refreshReservations() {
+async function refreshReservations() {
   const container = document.getElementById('reservationsTable');
-  const data = LM_DB.Reservations.getAll();
-  if (!data.length) {
+  try {
+    adminReservations = await fetchWithAuth('/reservations');
+  } catch (err) {
+    console.error('Impossible de charger les réservations admin:', err);
+    container.innerHTML = '<div class="empty-state"><span class="emoji">📋</span>Impossible de charger les réservations.</div>';
+    return;
+  }
+
+  if (!adminReservations.length) {
     container.innerHTML = '<div class="empty-state"><span class="emoji">📋</span>Aucune réservation enregistrée</div>';
     return;
   }
-  
+
   container.innerHTML = `
     <div style="overflow-x:auto">
     <table class="dash-table">
       <thead><tr>
-        <th>ID</th><th>Date Demande</th><th>Client</th><th>Tél</th><th>Chambre</th><th>Arrivée</th><th>Départ</th><th>Pers.</th><th>Prix Est.</th><th>Statut</th><th>Actions</th>
+        <th>ID</th><th>Date Demande</th><th>Client</th><th>Email</th><th>Tél</th><th>Chambre</th><th>Arrivée</th><th>Départ</th><th>Pers.</th><th>Statut</th><th>Actions</th>
       </tr></thead>
       <tbody>
-        ${data.map(r => {
-          const calc = LM_DB.Cart.calculateTotal(r.chambre, r.checkin, r.checkout);
-          const price = r.prixTotal || calc.total;
+        ${adminReservations.map(r => {
+          const createdAt = r.createdAt ? new Date(r.createdAt).toLocaleDateString('fr-DZ') : '—';
+          const clientName = `${r.firstName || ''} ${r.lastName || ''}`.trim() || '—';
+          const phone = r.phone || r.telephone || '—';
+          const roomType = r.roomType || r.chambre || '—';
+          const guests = r.guests || r.personnes || '—';
+          const status = r.status || 'pending';
           return `
             <tr>
               <td style="font-weight:600;color:var(--gold)">${r.id}</td>
-              <td>${r.createdAt ? new Date(r.createdAt).toLocaleDateString('fr-DZ') : (r.date || '—')}</td>
-              <td>${r.prenom || ''} ${r.nom || ''}</td>
-              <td>${r.telephone || '—'}</td>
-              <td>${r.chambre || '—'}</td>
-              <td>${r.checkin || '—'}</td>
-              <td>${r.checkout || '—'}</td>
-              <td>${r.personnes || '—'}</td>
-              <td>${parseInt(price).toLocaleString('fr-DZ')} DA</td>
-              <td><span class="status-badge status-${r.status || 'pending'}">${
-                r.status === 'confirmed' ? '✓ Confirmée' :
-                r.status === 'cancelled' ? '✗ Annulée' : '⏳ En attente'
+              <td>${createdAt}</td>
+              <td>${clientName}</td>
+              <td>${r.email || '—'}</td>
+              <td>${phone}</td>
+              <td>${roomType}</td>
+              <td>${r.checkIn || r.checkin || '—'}</td>
+              <td>${r.checkOut || r.checkout || '—'}</td>
+              <td>${guests}</td>
+              <td><span class="status-badge status-${status}">${
+                status === 'confirmed' ? '✓ Confirmée' :
+                status === 'cancelled' ? '✗ Annulée' : '⏳ En attente'
               }</span></td>
               <td>
-                ${r.status !== 'confirmed' ? `<button class="action-btn confirm" onclick="confirmRes('${r.id}')" title="Confirmer">✓</button>` : ''}
-                ${r.status !== 'cancelled' ? `<button class="action-btn cancel" onclick="cancelRes('${r.id}')" title="Annuler">✗</button>` : ''}
+                ${status !== 'confirmed' ? `<button class="action-btn confirm" onclick="confirmRes('${r.id}')" title="Confirmer">✓</button>` : ''}
+                ${status !== 'cancelled' ? `<button class="action-btn cancel" onclick="cancelRes('${r.id}')" title="Annuler">✗</button>` : ''}
                 <button class="action-btn delete" onclick="deleteRes('${r.id}')" title="Supprimer">🗑</button>
               </td>
             </tr>
@@ -552,14 +623,21 @@ function refreshReservations() {
   `;
 }
 
-function refreshReviews() {
+async function refreshReviews() {
   const container = document.getElementById('reviewsTable');
-  const data = LM_DB.Reviews.getAll();
-  if (!data.length) {
+  try {
+    adminReviews = await fetchWithAuth('/reviews/admin');
+  } catch (err) {
+    console.error('Impossible de charger les avis admin:', err);
+    container.innerHTML = '<div class="empty-state"><span class="emoji">⭐</span>Impossible de charger les avis.</div>';
+    return;
+  }
+
+  if (!adminReviews.length) {
     container.innerHTML = '<div class="empty-state"><span class="emoji">⭐</span>Aucun avis</div>';
     return;
   }
-  
+
   container.innerHTML = `
     <div style="overflow-x:auto">
     <table class="dash-table">
@@ -567,13 +645,13 @@ function refreshReviews() {
         <th>ID</th><th>Client</th><th>Ville</th><th>Note</th><th>Commentaire</th><th>Statut</th><th>Actions</th>
       </tr></thead>
       <tbody>
-        ${data.map(r => `
+        ${adminReviews.map(r => `
           <tr>
             <td style="font-size:11px;color:var(--text-muted)">${r.id}</td>
             <td>${r.prenom || 'Anonyme'} ${r.nom || ''}</td>
             <td>${r.ville || '—'}</td>
-            <td><span class="review-stars">${'★'.repeat(r.note)}${'☆'.repeat(5 - r.note)}</span></td>
-            <td class="review-text-cell" title="${r.commentaire}">${r.commentaire}</td>
+            <td><span class="review-stars">${'★'.repeat(Math.round(r.rating || r.note || 0))}${'☆'.repeat(5 - Math.round(r.rating || r.note || 0))}</span></td>
+            <td class="review-text-cell" title="${r.comment}">${r.comment}</td>
             <td><span class="status-badge ${r.approved ? 'status-confirmed' : 'status-pending'}">${
               r.approved ? '✓ Approuvé' : '⏳ En attente'
             }</span></td>
@@ -589,39 +667,74 @@ function refreshReviews() {
   `;
 }
 
-function confirmRes(id) {
-  LM_DB.Reservations.update(id, { status: 'confirmed' });
-  refreshAll();
-}
-
-function cancelRes(id) {
-  LM_DB.Reservations.update(id, { status: 'cancelled' });
-  refreshAll();
-}
-
-function deleteRes(id) {
-  if (confirm('Supprimer cette réservation définitivement?')) {
-    LM_DB.Reservations.delete(id);
-    refreshAll();
+async function confirmRes(id) {
+  try {
+    await fetchWithAuth(`/reservations/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: 'confirmed' })
+    });
+    await refreshAll();
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
   }
 }
 
-function approveReview(id) {
-  LM_DB.Reviews.approve(id);
-  refreshAll();
-}
-
-function deleteReview(id) {
-  if (confirm('Supprimer cet avis définitivement?')) {
-    LM_DB.Reviews.delete(id);
-    refreshAll();
+async function cancelRes(id) {
+  try {
+    await fetchWithAuth(`/reservations/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: 'cancelled' })
+    });
+    await refreshAll();
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
   }
 }
 
-function clearAll() {
-  if (confirm('ATTENTION: Voulez-vous vraiment supprimer TOUTES les réservations? Cette action est irréversible.')) {
-    localStorage.removeItem('lemarin_reservations'); // Central key from db.js
-    refreshAll();
+async function deleteRes(id) {
+  if (!confirm('Supprimer cette réservation définitivement?')) return;
+  try {
+    await fetchWithAuth(`/reservations/${id}`, { method: 'DELETE' });
+    await refreshAll();
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+}
+
+async function approveReview(id) {
+  try {
+    await fetchWithAuth(`/reviews/${id}/approve`, { method: 'PUT' });
+    await refreshAll();
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+}
+
+async function deleteReview(id) {
+  if (!confirm('Supprimer cet avis définitivement?')) return;
+  try {
+    await fetchWithAuth(`/reviews/${id}`, { method: 'DELETE' });
+    await refreshAll();
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+}
+
+async function clearAll() {
+  if (!confirm('ATTENTION: Voulez-vous vraiment supprimer TOUTES les réservations? Cette action est irréversible.')) return;
+  try {
+    await fetchWithAuth('/reservations', { method: 'DELETE' });
+    await refreshAll();
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
   }
 }
 

@@ -8,8 +8,19 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
+app.disable('x-powered-by');
 app.use(cors());
 app.use(express.json());
+app.use((req, res, next) => {
+  res.set({
+    'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+    'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
+  });
+  next();
+});
 // Serve the main website from the project root
 app.use(express.static(path.join(__dirname, '../..')));
 // Also serve public/ for any assets stored there

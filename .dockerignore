@@ -1,0 +1,14 @@
+node_modules
+npm-debug.log
+Dockerfile
+.dockerignore
+.git
+.env
+*.log
+*.sqlite
+database/lemarin.db
+assets/video/
+assets/images/gallery/
+public/media/
+public/assets/video/
+public/assets/images/gallery/

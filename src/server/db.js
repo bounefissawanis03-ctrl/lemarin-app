@@ -47,6 +47,17 @@ function get(query, params = []) {
   });
 }
 
+async function hasColumn(table, column) {
+  const cols = await all(`PRAGMA table_info(${table})`);
+  return cols.some(col => col.name === column);
+}
+
+async function ensureColumn(table, column, definition) {
+  if (!(await hasColumn(table, column))) {
+    await run(`ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`);
+  }
+}
+
 async function initializeSchema() {
   // Reservations table
   await run(`CREATE TABLE IF NOT EXISTS reservations (
@@ -60,6 +71,7 @@ async function initializeSchema() {
     checkOut DATE,
     guests INTEGER,
     notes TEXT,
+    status TEXT NOT NULL DEFAULT 'pending',
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
   )`);
 
@@ -75,8 +87,12 @@ async function initializeSchema() {
   await run(`CREATE TABLE IF NOT EXISTS reviews (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     reservationId INTEGER,
+    prenom TEXT,
+    nom TEXT,
+    ville TEXT,
     rating INTEGER CHECK (rating BETWEEN 1 AND 5),
     comment TEXT,
+    approved INTEGER NOT NULL DEFAULT 0,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (reservationId) REFERENCES reservations(id) ON DELETE SET NULL
   )`);
@@ -88,6 +104,12 @@ async function initializeSchema() {
     description TEXT,
     icon TEXT
   )`);
+
+  await ensureColumn('reservations', 'status', "TEXT NOT NULL DEFAULT 'pending'");
+  await ensureColumn('reviews', 'prenom', 'TEXT');
+  await ensureColumn('reviews', 'nom', 'TEXT');
+  await ensureColumn('reviews', 'ville', 'TEXT');
+  await ensureColumn('reviews', 'approved', 'INTEGER NOT NULL DEFAULT 0');
 
   // Insert default services if empty
   const count = await get('SELECT COUNT(*) as cnt FROM services');
