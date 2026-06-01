@@ -4,3 +4,12 @@ node_modules/
 *.log
 *.sqlite
 database/lemarin.db
+# Media files — store separately on CDN/cloud storage
+assets/video/
+assets/images/gallery/
+public/media/
+public/assets/video/
+public/assets/images/gallery/
+*.mp4
+*.MOV
+*.jfif

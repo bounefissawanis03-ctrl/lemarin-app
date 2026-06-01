@@ -1,0 +1,213 @@
+/* public/css/style.css */
+/* Root variables for themes */
+:root {
+  --color-bg-dark: hsl(210, 30%, 12%); /* night blue */
+  --color-text-dark: hsl(45, 80%, 60%); /* gold */
+  --color-bg-light: hsl(45, 80%, 95%); /* light gold/cream */
+  --color-text-light: hsl(210, 30%, 20%); /* dark blue */
+  --color-primary: hsl(210, 45%, 55%);
+  --transition-speed: 0.3s;
+}
+
+/* Theme toggling – default is light */
+[data-theme="dark"] {
+  --bg: var(--color-bg-dark);
+  --text: var(--color-text-dark);
+}
+[data-theme="light"] {
+  --bg: var(--color-bg-light);
+  --text: var(--color-text-light);
+}
+
+/* Global resets */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+/* Container */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 1rem 0;
+}
+
+/* Header */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  z-index: 1000;
+}
+header img.logo {
+  height: 48px;
+}
+nav a {
+  margin: 0 0.8rem;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-speed);
+}
+nav a:hover { color: var(--color-primary); }
+
+/* Theme toggle button */
+#theme-toggle {
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.2rem;
+}
+
+/* Hero section with parallax */
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+.hero video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: -1;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+}
+.hero-content {
+  position: relative;
+  text-align: center;
+  top: 40%;
+  transform: translateY(-40%);
+  color: var(--text);
+}
+.hero-content h1 { font-size: 3rem; margin-bottom: 1rem; }
+.hero-content p { font-size: 1.2rem; }
+
+/* Services grid */
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+.service-card {
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  transition: transform var(--transition-speed);
+}
+.service-card:hover { transform: translateY(-5px); }
+.service-card span.icon { display: block; font-size: 2rem; margin-bottom: 0.5rem; }
+
+/* Gallery */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 0.8rem;
+}
+.gallery img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity var(--transition-speed);
+}
+.gallery img:hover { opacity: 0.85; }
+
+/* Lightbox overlay */
+#lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+#lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; }
+
+/* Reservation modal */
+#reservation-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1500;
+}
+#reservation-modal .modal-content {
+  background: var(--bg);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.modal-content h2 { margin-bottom: 1rem; }
+.modal-content input, .modal-content select, .modal-content textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.2);
+  color: var(--text);
+}
+.modal-content button { cursor: pointer; }
+
+/* Reviews */
+.reviews { margin: 2rem 0; }
+.review-card { background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
+.star { color: gold; }
+
+/* Footer */
+footer { text-align: center; padding: 1rem 0; margin-top: 3rem; font-size: 0.9rem; }
+
+/* Night transition for gallery (day/night) */
+.gallery-night img {
+  filter: brightness(0.7) contrast(1.2);
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  header { flex-direction: column; gap: 0.5rem; }
+  .hero-content h1 { font-size: 2.2rem; }
+}

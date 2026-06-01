@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Marin Hotel – Admin Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <img src="img/logo.png" alt="Le Marin Logo" class="logo" />
+    <nav class="nav">
+      <a href="index.html">← Retour au site</a>
+    </nav>
+    <button id="theme-toggle" aria-label="Basculer le thème">☾/☀️</button>
+  </header>
+
+  <section class="admin-section" style="margin-top:80px; padding:2rem;">
+    <h2>Connexion Admin</h2>
+    <form id="login-form">
+      <div class="form-row">
+        <label for="admin-email">Email</label>
+        <input type="email" id="admin-email" required />
+      </div>
+      <div class="form-row">
+        <label for="admin-password">Mot de passe</label>
+        <input type="password" id="admin-password" required />
+      </div>
+      <button type="submit" class="btn-primary">Se connecter</button>
+    </form>
+    <p id="login-status" class="status-message"></p>
+  </section>
+
+  <section id="dashboard" class="admin-section" style="display:none; margin-top:2rem;">
+    <h2>Tableau de bord</h2>
+    <button id="logout-btn" class="btn-primary">Déconnexion</button>
+    <h3>Réservations</h3>
+    <table id="reservations-table" style="width:100%; border-collapse:collapse;">
+      <thead><tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Email</th><th>Chambre</th><th>Arrivée</th><th>Départ</th><th>Actions</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <h3 style="margin-top:2rem;">Avis</h3>
+    <table id="reviews-table" style="width:100%; border-collapse:collapse;">
+      <thead><tr><th>ID</th><th>ReservationID</th><th>Rating</th><th>Commentaire</th><th>Actions</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script> <!-- theme toggle reused -->
+</body>
+</html>
