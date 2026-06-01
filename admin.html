@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin – Le Marin Hôtel</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e2c87a;
+    --bg-dark: #0a1628;
+    --bg-card: rgba(255,255,255,0.04);
+    --text: #e8e0d0;
+    --text-muted: rgba(255,255,255,0.4);
+    --danger: #ff6b6b;
+    --success: #5ef59e;
+    --warning: #ffc107;
+    --info: #64b5f6;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  /* LOGIN SCREEN */
+  .login-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a1628 0%, #0f2040 50%, #0a1628 100%);
+  }
+  .login-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 16px;
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .login-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .login-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .login-box input {
+    width: 100%;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .login-box input:focus {
+    border-color: var(--gold);
+  }
+  .login-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: #0a1628;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 8px;
+  }
+  .login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(201,168,76,0.3);
+  }
+  .login-error {
+    color: var(--danger);
+    font-size: 12px;
+    margin-top: 12px;
+    min-height: 18px;
+  }
+  /* DASHBOARD */
+  .dashboard { display: none; }
+  .dash-header {
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .dash-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--gold);
+  }
+  .dash-brand small {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    display: block;
+  }
+  .dash-user {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .dash-user-name {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .btn-logout {
+    padding: 8px 18px;
+    background: rgba(255,107,107,0.1);
+    border: 1px solid rgba(255,107,107,0.3);
+    color: var(--danger);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: inherit;
+    transition: background 0.2s;
+  }
+  .btn-logout:hover {
+    background: rgba(255,107,107,0.2);
+  }
+  .btn-back {
+    padding: 8px 18px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: inherit;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-back:hover {
+    background: rgba(201,168,76,0.2);
+  }
+  .dash-body {
+    padding: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  /* STATS */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .stat-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(201,168,76,0.2);
+  }
+  .stat-value {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+  /* TABS */
+  .dash-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding-bottom: 0;
+  }
+  .dash-tab {
+    padding: 12px 24px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .dash-tab.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+  .dash-tab:hover {
+    color: var(--text);
+  }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  /* TABLE */
+  .dash-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .dash-table th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .dash-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    vertical-align: middle;
+  }
+  .dash-table tr:hover td {
+    background: rgba(201,168,76,0.03);
+  }
+  .status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .status-pending {
+    background: rgba(255,193,7,0.1);
+    color: var(--warning);
+    border: 1px solid rgba(255,193,7,0.2);
+  }
+  .status-confirmed {
+    background: rgba(94,245,158,0.1);
+    color: var(--success);
+    border: 1px solid rgba(94,245,158,0.2);
+  }
+  .status-cancelled {
+    background: rgba(255,107,107,0.1);
+    color: var(--danger);
+    border: 1px solid rgba(255,107,107,0.2);
+  }
+  .action-btn {
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 11px;
+    font-family: inherit;
+    margin-right: 4px;
+    transition: all 0.2s;
+  }
+  .action-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .action-btn.confirm { border-color: rgba(94,245,158,0.3); color: var(--success); }
+  .action-btn.cancel { border-color: rgba(255,193,7,0.3); color: var(--warning); }
+  .action-btn.delete { border-color: rgba(255,107,107,0.3); color: var(--danger); }
+  /* TOOLBAR */
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .toolbar-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--gold);
+  }
+  .toolbar-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .btn-export {
+    padding: 8px 18px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: inherit;
+    transition: background 0.2s;
+  }
+  .btn-export:hover {
+    background: rgba(201,168,76,0.2);
+  }
+  .btn-clear {
+    padding: 8px 18px;
+    background: rgba(255,107,107,0.1);
+    border: 1px solid rgba(255,107,107,0.3);
+    color: var(--danger);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: inherit;
+    transition: background 0.2s;
+  }
+  .btn-clear:hover {
+    background: rgba(255,107,107,0.2);
+  }
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .empty-state .emoji {
+    font-size: 48px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  /* REVIEW IN TABLE */
+  .review-text-cell {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .review-stars {
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .dash-header { padding: 12px 16px; flex-direction: column; gap: 12px; }
+    .dash-body { padding: 16px; }
+    .dash-table { font-size: 11px; }
+    .dash-table th, .dash-table td { padding: 8px; }
+    .dash-tabs { overflow-x: auto; }
+    .stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">Le Marin Hôtel ★★</div>
+    <div class="login-sub">Espace Administrateur</div>
+    <form onsubmit="handleLogin(event)">
+      <input type="text" id="loginUser" placeholder="Nom d'utilisateur" autocomplete="username" required />
+      <input type="password" id="loginPass" placeholder="Mot de passe" autocomplete="current-password" required />
+      <button type="submit" class="login-btn">Se Connecter</button>
+    </form>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <header class="dash-header">
+    <div>
+      <div class="dash-brand">Le Marin Hôtel ★★ <small>Tableau de Bord</small></div>
+    </div>
+    <div class="dash-user">
+      <a href="index.html" class="btn-back">← Retour au Site</a>
+      <span class="dash-user-name" id="dashUserName"></span>
+      <button class="btn-logout" onclick="handleLogout()">Déconnexion</button>
+    </div>
+  </header>
+  <div class="dash-body">
+    <!-- STATS -->
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card"><div class="stat-value" id="statTotal">0</div><div class="stat-label">Total Réservations</div></div>
+      <div class="stat-card"><div class="stat-value" id="statPending">0</div><div class="stat-label">En Attente</div></div>
+      <div class="stat-card"><div class="stat-value" id="statConfirmed">0</div><div class="stat-label">Confirmées</div></div>
+      <div class="stat-card"><div class="stat-value" id="statRevenue">0 DA</div><div class="stat-label">Revenus (DA)</div></div>
+      <div class="stat-card"><div class="stat-value" id="statReviews">0</div><div class="stat-label">Avis Clients</div></div>
+      <div class="stat-card"><div class="stat-value" id="statAvgRating">0</div><div class="stat-label">Note Moyenne</div></div>
+    </div>
+    <!-- TABS -->
+    <div class="dash-tabs">
+      <button class="dash-tab active" onclick="switchTab('reservations')">📋 Réservations</button>
+      <button class="dash-tab" onclick="switchTab('reviews')">⭐ Avis</button>
+      <button class="dash-tab" onclick="switchTab('messages')">💬 Messages</button>
+    </div>
+    <!-- TAB: Reservations -->
+    <div class="tab-content active" id="tab-reservations">
+      <div class="toolbar">
+        <div class="toolbar-title">Réservations</div>
+        <div class="toolbar-actions">
+          <button class="btn-export" onclick="exportCSV()">📥 Exporter CSV</button>
+          <button class="btn-clear" onclick="clearAll()">🗑 Tout Supprimer</button>
+        </div>
+      </div>
+      <div id="reservationsTable"></div>
+    </div>
+    <!-- TAB: Reviews -->
+    <div class="tab-content" id="tab-reviews">
+      <div class="toolbar">
+        <div class="toolbar-title">Avis Clients</div>
+      </div>
+      <div id="reviewsTable"></div>
+    </div>
+    <!-- TAB: Messages -->
+    <div class="tab-content" id="tab-messages">
+      <div class="toolbar">
+        <div class="toolbar-title">Messages Reçus</div>
+      </div>
+      <div class="empty-state"><span class="emoji">💬</span>Les messages WhatsApp sont reçus directement sur votre téléphone.<br>Numéro: 0552035894</div>
+    </div>
+  </div>
+</div>
+
+<script src="db.js"></script>
+<script>
+'use strict';
+
+// Init DB
+LM_DB.init();
+
+// Check if already logged in
+if (LM_DB.Auth.isLoggedIn()) {
+  showDashboard(LM_DB.Auth.getSession());
+}
+
+function handleLogin(e) {
+  e.preventDefault();
+  const user = document.getElementById('loginUser').value.trim();
+  const pass = document.getElementById('loginPass').value;
+  const admin = LM_DB.Auth.login(user, pass);
+  if (admin) {
+    LM_DB.Auth.startSession(admin);
+    showDashboard(admin);
+  } else {
+    document.getElementById('loginError').textContent = 'Identifiants incorrects';
+    setTimeout(() => document.getElementById('loginError').textContent = '', 3000);
+  }
+}
+
+function handleLogout() {
+  LM_DB.Auth.endSession();
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('dashboard').style.display = 'none';
+}
+
+function showDashboard(admin) {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  document.getElementById('dashUserName').textContent = admin.nom || admin.username;
+  refreshAll();
+}
+
+function refreshAll() {
+  refreshStats();
+  refreshReservations();
+  refreshReviews();
+}
+
+function refreshStats() {
+  const res = LM_DB.Reservations.getAll();
+  const reviews = LM_DB.Reviews.getAll();
+  document.getElementById('statTotal').textContent = res.length;
+  document.getElementById('statPending').textContent = res.filter(r => r.status === 'pending').length;
+  document.getElementById('statConfirmed').textContent = res.filter(r => r.status === 'confirmed').length;
+  
+  // Calculate revenue: sum the price of confirmed reservations
+  const revenue = res.filter(r => r.status === 'confirmed').reduce((sum, r) => {
+    if (r.prixTotal) return sum + (parseInt(r.prixTotal) || 0);
+    const calc = LM_DB.Cart.calculateTotal(r.chambre, r.checkin, r.checkout);
+    return sum + calc.total;
+  }, 0);
+  
+  document.getElementById('statRevenue').textContent = revenue.toLocaleString('fr-DZ') + ' DA';
+  document.getElementById('statReviews').textContent = reviews.length;
+  document.getElementById('statAvgRating').textContent = LM_DB.Reviews.getAvgRating();
+}
+
+function refreshReservations() {
+  const container = document.getElementById('reservationsTable');
+  const data = LM_DB.Reservations.getAll();
+  if (!data.length) {
+    container.innerHTML = '<div class="empty-state"><span class="emoji">📋</span>Aucune réservation enregistrée</div>';
+    return;
+  }
+  
+  container.innerHTML = `
+    <div style="overflow-x:auto">
+    <table class="dash-table">
+      <thead><tr>
+        <th>ID</th><th>Date Demande</th><th>Client</th><th>Tél</th><th>Chambre</th><th>Arrivée</th><th>Départ</th><th>Pers.</th><th>Prix Est.</th><th>Statut</th><th>Actions</th>
+      </tr></thead>
+      <tbody>
+        ${data.map(r => {
+          const calc = LM_DB.Cart.calculateTotal(r.chambre, r.checkin, r.checkout);
+          const price = r.prixTotal || calc.total;
+          return `
+            <tr>
+              <td style="font-weight:600;color:var(--gold)">${r.id}</td>
+              <td>${r.createdAt ? new Date(r.createdAt).toLocaleDateString('fr-DZ') : (r.date || '—')}</td>
+              <td>${r.prenom || ''} ${r.nom || ''}</td>
+              <td>${r.telephone || '—'}</td>
+              <td>${r.chambre || '—'}</td>
+              <td>${r.checkin || '—'}</td>
+              <td>${r.checkout || '—'}</td>
+              <td>${r.personnes || '—'}</td>
+              <td>${parseInt(price).toLocaleString('fr-DZ')} DA</td>
+              <td><span class="status-badge status-${r.status || 'pending'}">${
+                r.status === 'confirmed' ? '✓ Confirmée' :
+                r.status === 'cancelled' ? '✗ Annulée' : '⏳ En attente'
+              }</span></td>
+              <td>
+                ${r.status !== 'confirmed' ? `<button class="action-btn confirm" onclick="confirmRes('${r.id}')" title="Confirmer">✓</button>` : ''}
+                ${r.status !== 'cancelled' ? `<button class="action-btn cancel" onclick="cancelRes('${r.id}')" title="Annuler">✗</button>` : ''}
+                <button class="action-btn delete" onclick="deleteRes('${r.id}')" title="Supprimer">🗑</button>
+              </td>
+            </tr>
+          `;
+        }).join('')}
+      </tbody>
+    </table>
+    </div>
+  `;
+}
+
+function refreshReviews() {
+  const container = document.getElementById('reviewsTable');
+  const data = LM_DB.Reviews.getAll();
+  if (!data.length) {
+    container.innerHTML = '<div class="empty-state"><span class="emoji">⭐</span>Aucun avis</div>';
+    return;
+  }
+  
+  container.innerHTML = `
+    <div style="overflow-x:auto">
+    <table class="dash-table">
+      <thead><tr>
+        <th>ID</th><th>Client</th><th>Ville</th><th>Note</th><th>Commentaire</th><th>Statut</th><th>Actions</th>
+      </tr></thead>
+      <tbody>
+        ${data.map(r => `
+          <tr>
+            <td style="font-size:11px;color:var(--text-muted)">${r.id}</td>
+            <td>${r.prenom || 'Anonyme'} ${r.nom || ''}</td>
+            <td>${r.ville || '—'}</td>
+            <td><span class="review-stars">${'★'.repeat(r.note)}${'☆'.repeat(5 - r.note)}</span></td>
+            <td class="review-text-cell" title="${r.commentaire}">${r.commentaire}</td>
+            <td><span class="status-badge ${r.approved ? 'status-confirmed' : 'status-pending'}">${
+              r.approved ? '✓ Approuvé' : '⏳ En attente'
+            }</span></td>
+            <td>
+              ${!r.approved ? `<button class="action-btn confirm" onclick="approveReview('${r.id}')" title="Approuver">✓</button>` : ''}
+              <button class="action-btn delete" onclick="deleteReview('${r.id}')" title="Supprimer">🗑</button>
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    </div>
+  `;
+}
+
+function confirmRes(id) {
+  LM_DB.Reservations.update(id, { status: 'confirmed' });
+  refreshAll();
+}
+
+function cancelRes(id) {
+  LM_DB.Reservations.update(id, { status: 'cancelled' });
+  refreshAll();
+}
+
+function deleteRes(id) {
+  if (confirm('Supprimer cette réservation définitivement?')) {
+    LM_DB.Reservations.delete(id);
+    refreshAll();
+  }
+}
+
+function approveReview(id) {
+  LM_DB.Reviews.approve(id);
+  refreshAll();
+}
+
+function deleteReview(id) {
+  if (confirm('Supprimer cet avis définitivement?')) {
+    LM_DB.Reviews.delete(id);
+    refreshAll();
+  }
+}
+
+function clearAll() {
+  if (confirm('ATTENTION: Voulez-vous vraiment supprimer TOUTES les réservations? Cette action est irréversible.')) {
+    localStorage.removeItem('lemarin_reservations'); // Central key from db.js
+    refreshAll();
+  }
+}
+
+function exportCSV() {
+  const csv = LM_DB.Reservations.exportCSV();
+  if (!csv) { alert('Aucune réservation à exporter'); return; }
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `reservations_lemarin_${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function switchTab(tabId) {
+  document.querySelectorAll('.dash-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  
+  event.currentTarget.classList.add('active');
+  document.getElementById('tab-' + tabId).classList.add('active');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "services": [
+    { "id": 1, "name": "Vue Mer", "description": "Panorama exceptionnel sur la Méditerranée depuis vos balcons et suites.", "icon": "🌊" },
+    { "id": 2, "name": "Parking Gratuit", "description": "Espace de stationnement sécurisé disponible pour tous nos clients.", "icon": "🅿️" },
+    { "id": 3, "name": "Bains & Douches", "description": "Salles de bains spacieuses et équipées dans toutes nos chambres et suites.", "icon": "🛁" },
+    { "id": 4, "name": "Climatisation", "description": "Climatisation individuelle chaud/froid réglable dans chaque chambre.", "icon": "❄️" },
+    { "id": 5, "name": "Télévision", "description": "Télévision à écran plat avec chaînes nationales et internationales.", "icon": "📺" },
+    { "id": 6, "name": "WiFi Gratuit", "description": "Connexion WiFi haut débit gratuite dans tout l'hôtel sans limitation.", "icon": "📶" },
+    { "id": 7, "name": "Petit-Déjeuner", "description": "Petit-déjeuner continental varié servi chaque matin avec produits frais.", "icon": "🍳" },
+    { "id": 8, "name": "Cafétéria", "description": "Cafétéria ouverte toute la journée avec boissons chaudes, snacks et pâtisseries.", "icon": "☕" },
+    { "id": 9, "name": "Balcons Panoramiques", "description": "Beaux balcons avec vue imprenable sur la mer et les collines d'Ain El Turk.", "icon": "🌿" }
+  ],
+  "reviews": [
+    { "id": "rev-001", "prenom": "Fatima", "nom": "B.", "ville": "Alger", "rating": 5, "comment": "Un séjour absolument inoubliable ! La vue sur mer était à couper le souffle.", "createdAt": "2025-08-14T12:00:00.000Z" },
+    { "id": "rev-002", "prenom": "Karim", "nom": "M.", "ville": "Oran", "rating": 5, "comment": "Hôtel magnifique, décoration somptueuse et personnel très professionnel.", "createdAt": "2025-07-28T12:00:00.000Z" },
+    { "id": "rev-003", "prenom": "Nadia", "nom": "K.", "ville": "Annaba", "rating": 5, "comment": "Coup de cœur total ! L'hôtel nous a émerveillés dès l'entrée.", "createdAt": "2025-08-20T12:00:00.000Z" }
+  ],
+  "reservations": []
+}

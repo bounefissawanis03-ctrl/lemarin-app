@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Le Marin Hôtel ★★ – Ain El Turk, Oran, Algérie</title>
+<meta name="description" content="Hôtel 2 étoiles Le Marin à Ain El Turk, Oran. Vue mer, parking, WiFi gratuit. Réservation directe: 0552035894" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@200;300;400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css?v=2" />
+</head>
+<body id="body">
+
+<!-- ════════════════════════════════════════════════════════════
+     LOADER SCREEN
+════════════════════════════════════════════════════════════ -->
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-anchor">
+      <img src="assets/images/sailor_logo.png" alt="Le Marin" class="loader-sailor-img" width="60" height="60" />
+    </div>
+    <div class="loader-name">
+      <span class="loader-le">LE</span>
+      <span class="loader-marin">MARIN</span>
+      <span class="loader-stars">★ ★</span>
+    </div>
+    <div class="loader-bar-wrap"><div class="loader-bar" id="loaderBar"></div></div>
+    <p class="loader-text" id="loaderText">Bienvenue…</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="nav-brand">
+    <div class="brand-logo">
+      <!-- Sailor Captain Logo -->
+      <img src="assets/images/sailor_logo.png" alt="Le Marin" class="brand-sailor-img" width="38" height="38" />
+      <div class="brand-text">
+        <span class="brand-name">Le Marin</span>
+        <span class="brand-stars">★ ★</span>
+      </div>
+    </div>
+  </div>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#accueil"      class="nav-link active" data-fr="Accueil"      data-ar="الرئيسية">Accueil</a></li>
+    <li><a href="#services"     class="nav-link"         data-fr="Services"     data-ar="الخدمات">Services</a></li>
+    <li><a href="#chambres"     class="nav-link"         data-fr="Chambres"     data-ar="الغرف">Chambres</a></li>
+    <li><a href="#galerie"      class="nav-link"         data-fr="Galerie"      data-ar="المعرض">Galerie</a></li>
+    <li><a href="#avis"         class="nav-link"         data-fr="Avis"         data-ar="التقييمات">Avis</a></li>
+    <li><a href="#localisation" class="nav-link"         data-fr="Localisation" data-ar="الموقع">Localisation</a></li>
+    <li><a href="#contact"      class="nav-link"         data-fr="Contact"      data-ar="التواصل">Contact</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <div class="lang-group">
+      <button class="lang-btn active" data-lang="fr" id="btnFR">FR</button>
+      <button class="lang-btn"        data-lang="ar" id="btnAR">ع</button>
+    </div>
+    <!-- Dark/Light Mode Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème" title="Mode clair/sombre">
+      <span class="theme-icon-dark">🌙</span>
+      <span class="theme-icon-light">☀️</span>
+    </button>
+    <!-- Sound Toggle -->
+    <button class="sound-toggle-nav" id="soundToggleNav" aria-label="Son" title="Activer/Désactiver le son">
+      <svg id="soundIconOn" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+      </svg>
+      <svg id="soundIconOff" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <line x1="23" y1="9" x2="17" y2="15"/>
+        <line x1="17" y1="9" x2="23" y2="15"/>
+      </svg>
+    </button>
+    <a href="#" onclick="openBookingModal('',0);return false;" class="btn-reserve" id="navReserveBtn" data-fr="Réserver" data-ar="احجز">Réserver</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO – VIDEO INTRO
+════════════════════════════════════════════════════════════ -->
+<section id="accueil" class="hero-section">
+  <!-- VIDEO BG -->
+  <div class="hero-bg">
+    <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto">
+      <source src="assets/video/IMG_1826.MP4" type="video/mp4" />
+      <!-- Fallback image if video doesn't load -->
+      <img src="assets/images/hotel_night_wide.jpg" alt="Le Marin Hotel" class="hero-fallback-img" />
+    </video>
+    <div class="hero-gradient-overlay"></div>
+    <div class="hero-vignette"></div>
+    <!-- Cinematic horizontal scan lines -->
+    <div class="hero-scanlines"></div>
+  </div>
+
+  <!-- SCROLL HINT -->
+  <div class="scroll-hint-top" id="scrollHint">
+    <div class="scroll-circle">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <rect x="9" y="3" width="6" height="10" rx="3" stroke="#c9a84c" stroke-width="1.5"/>
+        <circle cx="12" cy="7" r="1.5" fill="#c9a84c" class="scroll-dot-anim"/>
+      </svg>
+    </div>
+    <span class="scroll-label">SCROLL<br/>POUR EXPLORER</span>
+  </div>
+
+  <!-- HERO CONTENT -->
+  <div class="hero-content" id="heroContent">
+    <p class="hero-eyebrow" data-fr="BIENVENUE AU CŒUR DE" data-ar="مرحباً في قلب">BIENVENUE AU CŒUR DE</p>
+    <h1 class="hero-title">
+      <span class="ht-line" data-fr="L'EXPÉRIENCE" data-ar="التجربة">L'EXPÉRIENCE</span>
+      <span class="ht-line gold-italic" data-fr="MARITIME" data-ar="البحرية">MARITIME</span>
+    </h1>
+    <p class="hero-sub-en" data-fr="WELCOME TO THE HEART OF THE MARITIME EXPERIENCE" data-ar="مرحباً في قلب التجربة البحرية">
+      WELCOME TO THE HEART OF<br/>THE MARITIME EXPERIENCE
+    </p>
+    <p class="hero-sub-ar">مرحباً بكم في قلب التجربة البحرية</p>
+    <div class="hero-ctas">
+      <a href="#chambres" class="btn-gold" data-fr="Voir les Chambres" data-ar="استكشف الغرف">Voir les Chambres</a>
+      <a href="https://wa.me/213552035894?text=Bonjour%20Le%20Marin%20H%C3%B4tel!%20Je%20souhaite%20r%C3%A9server." target="_blank" class="btn-wa-hero">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <!-- Scene dots -->
+  <div class="hero-scene-dots" id="sceneDots">
+    <button class="scene-dot active" data-scene="0"></button>
+    <button class="scene-dot" data-scene="1"></button>
+    <button class="scene-dot" data-scene="2"></button>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     INFO BAND
+════════════════════════════════════════════════════════════ -->
+<section class="info-band">
+  <div class="info-band-inner">
+    <div class="ib-hotel-name">
+      <span class="ib-hotel-label" data-fr="HÔTEL" data-ar="فندق">HÔTEL</span>
+      <strong class="ib-name" data-fr="LE MARIN" data-ar="لو مارين">LE MARIN</strong>
+      <span class="ib-stars">★ ★</span>
+      <span class="ib-cat" data-fr="HÔTEL 2 ÉTOILES" data-ar="فندق ذو نجمتين">HÔTEL 2 ÉTOILES</span>
+    </div>
+    <div class="ib-col">
+      <div class="ib-col-head">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span class="ib-col-title" data-fr="ADRESSE" data-ar="العنوان">ADRESSE</span>
+      </div>
+      <p class="ib-text" data-fr="48 Cooperative Benzarga Houari, CAP Falcon, Ain Turck, Oran, Algérie" data-ar="48 تعاونية بنزرقة الهواري، كاب فالكون، عين التراك، وهران">
+        48 Cooperative Benzarga Houari,<br/>CAP Falcon, Ain Turck,<br/>Oran, Algérie
+      </p>
+    </div>
+    <div class="ib-col">
+      <div class="ib-col-head">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.58 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span class="ib-col-title" data-fr="CONTACT" data-ar="التواصل">CONTACT</span>
+      </div>
+      <a href="tel:+213552035894" class="ib-phone">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="#4bde85"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.58 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +213 55 20 35 894
+      </a>
+      <a href="https://wa.me/213552035894" target="_blank" class="ib-phone ib-wa">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="#4bde85"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        WhatsApp: 0552035894
+      </a>
+    </div>
+    <div class="ib-col ib-247">
+      <div class="ib-247-icon">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <strong class="ib-247-text">24/7</strong>
+      <p class="ib-247-sub" data-fr="OUVERT 24H/24 ET 7J/7" data-ar="مفتوح 24/24 و 7/7">OUVERT 24H/24<br/>ET 7J/7</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     SERVICES SECTION
+════════════════════════════════════════════════════════════ -->
+<section id="services" class="services-section">
+  <div class="parallax-bg services-parallax-bg">
+    <img src="assets/images/lobby_seating2.jpg" alt="" class="parallax-img" />
+    <div class="parallax-overlay"></div>
+  </div>
+  <div class="services-inner">
+    <div class="section-header reveal">
+      <span class="section-eyebrow" data-fr="NOS SERVICES" data-ar="خدماتنا">NOS SERVICES</span>
+      <h2 class="section-heading" data-fr="Tout pour votre confort" data-ar="كل شيء لراحتكم">
+        Tout pour votre <em>confort</em>
+      </h2>
+      <p class="section-sub" data-fr="Profitez de nos équipements premium et de notre hospitalité légendaire." data-ar="استمتع بمرافقنا المميزة وضيافتنا الأسطورية.">
+        Profitez de nos équipements premium et de notre hospitalité légendaire.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal" style="--delay:0.1s">
+        <div class="service-icon">🌊</div>
+        <h3 data-fr="Vue Mer" data-ar="إطلالة على البحر">Vue Mer</h3>
+        <p data-fr="Panorama exceptionnel sur la Méditerranée depuis vos balcons et suites." data-ar="إطلالة استثنائية على البحر الأبيض المتوسط من شرفاتكم وأجنحتكم.">Panorama exceptionnel sur la Méditerranée depuis vos balcons et suites.</p>
+      </div>
+      <div class="service-card reveal" style="--delay:0.15s">
+        <div class="service-icon">🅿️</div>
+        <h3 data-fr="Parking Gratuit" data-ar="موقف سيارات مجاني">Parking Gratuit</h3>
+        <p data-fr="Espace de stationnement sécurisé disponible pour tous nos clients." data-ar="موقف سيارات آمن متاح لجميع ضيوفنا.">Espace de stationnement sécurisé disponible pour tous nos clients.</p>
+      </div>
+      <div class="service-card reveal" style="--delay:0.2s">
+        <div class="service-icon">🛁</div>
+        <h3 data-fr="Bains & Douches" data-ar="حمامات">Bains & Douches</h3>
+        <p data-fr="Salles de bains spacieuses et équipées dans toutes nos chambres et suites." data-ar="حمامات واسعة ومجهزة في جميع غرفنا وأجنحتنا.">Salles de bains spacieuses et équipées dans toutes nos chambres et suites.</p>
+      </div>
+      <div class="service-card reveal" style="--delay:0.25s">
+        <div class="service-icon">❄️</div>
+        <h3 data-fr="Climatisation" data-ar="تكييف الهواء">Climatisation</h3>
+        <p data-fr="Climatisation individuelle chaud/froid réglable dans chaque chambre." data-ar="تكييف هواء فردي قابل للتعديل في كل غرفة.">Climatisation individuelle chaud/froid réglable dans chaque chambre.</p>
+      </div>
+      <div class="service-card reveal" style="--delay:0.3s">
+        <div class="service-icon">📺</div>
+        <h3 data-fr="Télévision" data-ar="تلفزيون">Télévision</h3>
+        <p data-fr="Télévision à écran plat avec chaînes nationales et internationales." data-ar="تلفزيون شاشة مسطحة مع قنوات محلية ودولية.">Télévision à écran plat avec chaînes nationales et internationales.</p>
+      </div>
+      <div class="service-card reveal" style="--delay:0.35s">
+        <div class="service-icon">📶</div>
+        <h3 data-fr="WiFi Gratuit" data-ar="واي فاي مجاني">WiFi Gratuit</h3>
+        <p data-fr="Connexion WiFi haut débit gratuite dans tout l'hôtel sans limitation." data-ar="اتصال واي فاي عالي السرعة مجاني في جميع أنحاء الفندق.">Connexion WiFi haut débit gratuite dans tout l'hôtel sans limitation.</p>
+      </div>
+      <div class="service-card reveal" style="--delay:0.4s">
+        <div class="service-icon">🍳</div>
+        <h3 data-fr="Petit-Déjeuner" data-ar="إفطار">Petit-Déjeuner</h3>
+        <p data-fr="Petit-déjeuner continental varié servi chaque matin avec produits frais." data-ar="فطور قاري متنوع يُقدم كل صباح مع منتجات طازجة.">Petit-déjeuner continental varié servi chaque matin avec produits frais.</p>
+      </div>
+      <div class="service-card reveal" style="--delay:0.45s">
+        <div class="service-icon">☕</div>
+        <h3 data-fr="Cafétéria" data-ar="كافيتيريا">Cafétéria</h3>
+        <p data-fr="Cafétéria ouverte toute la journée avec boissons chaudes, snacks et pâtisseries." data-ar="كافيتيريا مفتوحة طوال اليوم مع مشروبات ساخنة وحلويات.">Cafétéria ouverte toute la journée avec boissons et pâtisseries.</p>
+      </div>
+      <div class="service-card reveal" style="--delay:0.5s">
+        <div class="service-icon">🌿</div>
+        <h3 data-fr="Balcons Panoramiques" data-ar="شرفات بانورامية">Balcons Panoramiques</h3>
+        <p data-fr="Beaux balcons avec vue imprenable sur la mer et les collines d'Ain El Turk." data-ar="شرفات جميلة بإطلالة رائعة على البحر وتلال عين التراك.">Beaux balcons avec vue imprenable sur la mer d'Ain El Turk.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     ROOMS SECTION
+════════════════════════════════════════════════════════════ -->
+<section id="chambres" class="rooms-section">
+  <div class="rooms-bg">
+    <img src="assets/images/hall_wide.jpg" alt="" class="rooms-bg-img parallax-img" />
+    <div class="rooms-bg-overlay"></div>
+  </div>
+  <div class="rooms-inner">
+    <div class="rooms-header reveal">
+      <h2 class="rooms-title">
+        <span data-fr="NOS CHAMBRES & " data-ar="غرفنا & ">NOS CHAMBRES & </span><span class="gold-italic" data-fr="SUITES" data-ar="أجنحتنا">SUITES</span>
+      </h2>
+      <p class="rooms-title-ar">غرفنا وأجنحتنا</p>
+    </div>
+    <div class="rooms-grid">
+      <!-- Card 1: Chambre Double -->
+      <div class="room-card reveal" id="roomDouble" style="--delay:0.1s">
+        <div class="room-img-wrap">
+          <img src="assets/images/chambre_double.jpg" alt="Chambre Double" class="room-img" />
+          <div class="room-img-overlay"></div>
+          <span class="room-badge-avail">DISPONIBLE</span>
+        </div>
+        <div class="room-body">
+          <h3 class="room-name" data-fr="CHAMBRE DOUBLE" data-ar="غرفة مزدوجة">CHAMBRE DOUBLE</h3>
+          <div class="room-amenities-icons">
+            <span title="WiFi Gratuit">📶</span>
+            <span title="Climatisation">❄️</span>
+            <span title="Télévision">📺</span>
+            <span title="Salle de bain">🚿</span>
+          </div>
+          <div class="room-price-row">
+            <span class="room-price" data-fr="7 000 DA / NUIT" data-ar="7000 دج / ليلة">7 000 DA / NUIT</span>
+          </div>
+          <div class="room-actions">
+            <button class="btn-book-room" onclick="openBookingModal('Chambre Double', 7000)" data-fr="Réserver" data-ar="احجز">Réserver</button>
+            <button class="btn-wa-room" onclick="whatsappBook('Chambre Double', 7000)" title="WhatsApp">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2: Suites -->
+      <div class="room-card room-card-featured reveal" id="suiteCard" style="--delay:0.2s">
+        <div class="room-img-wrap">
+          <img src="assets/images/suite_blue.jpg" alt="Suite" class="room-img" />
+          <div class="room-img-overlay"></div>
+          <span class="room-badge-featured">✦ POPULAIRE</span>
+        </div>
+        <div class="room-body">
+          <h3 class="room-name" data-fr="SUITES" data-ar="أجنحة">SUITES</h3>
+          <div class="room-amenities-icons">
+            <span title="WiFi">📶</span><span title="Clim">❄️</span>
+            <span title="TV">📺</span><span title="Salon">🛋️</span>
+            <span title="Mini-bar">🍾</span>
+          </div>
+          <div class="room-price-row">
+            <span class="room-price" data-fr="9 000 DA – 14 000 DA / NUIT" data-ar="9000 دج – 14000 دج / ليلة">9 000 DA – 14 000 DA / NUIT</span>
+          </div>
+          <div class="room-actions">
+            <button class="btn-book-room" onclick="openBookingModal('Suite', 9000)" data-fr="Réserver" data-ar="احجز">Réserver</button>
+            <button class="btn-wa-room" onclick="whatsappBook('Suite', 9000)" title="WhatsApp">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 3: Appartements -->
+      <div class="room-card reveal" id="appartCard" style="--delay:0.3s">
+        <div class="room-img-wrap">
+          <img src="assets/images/appartement.jpg" alt="Appartements" class="room-img" />
+          <div class="room-img-overlay"></div>
+          <span class="room-badge-avail">DISPONIBLE</span>
+        </div>
+        <div class="room-body">
+          <h3 class="room-name" data-fr="APPARTEMENTS / SUITES ROYALES" data-ar="شقق / أجنحة ملكية">APPARTEMENTS /<br/>SUITES ROYALES</h3>
+          <div class="room-amenities-icons">
+            <span title="WiFi">📶</span><span title="Clim">❄️</span>
+            <span title="TV">📺</span><span title="Salon">🛋️</span>
+            <span title="Cuisine">🍳</span><span title="Terrasse">🌿</span>
+          </div>
+          <div class="room-price-row">
+            <span class="room-price" data-fr="15 000 DA – 25 000 DA / NUIT" data-ar="15000 دج – 25000 دج / ليلة">15 000 DA – 25 000 DA / NUIT</span>
+          </div>
+          <div class="room-actions">
+            <button class="btn-book-room" onclick="openBookingModal('Appartement / Suite Royale', 15000)" data-fr="Réserver" data-ar="احجز">Réserver</button>
+            <button class="btn-wa-room" onclick="whatsappBook('Appartement / Suite Royale', 15000)" title="WhatsApp">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="rooms-cta reveal">
+      <a href="#galerie" class="btn-discover" data-fr="DÉCOUVRIR TOUTES NOS CHAMBRES" data-ar="اكتشف جميع غرفنا">DÉCOUVRIR TOUTES NOS CHAMBRES</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     RESERVATION CTA BANNER
+════════════════════════════════════════════════════════════ -->
+<section class="reserve-cta-section">
+  <div class="reserve-cta-left reveal">
+    <h2 class="reserve-cta-title" data-fr="RÉSERVEZ VOTRE SÉJOUR DÈS MAINTENANT" data-ar="احجز إقامتك الآن">
+      RÉSERVEZ VOTRE SÉJOUR<br/>DÈS MAINTENANT
+    </h2>
+    <p class="reserve-cta-ar">احجز إقامتك الآن</p>
+  </div>
+  <div class="reserve-cta-center reveal">
+    <button class="btn-reserve-big" onclick="openBookingModal('',0)">
+      <span data-fr="RÉSERVER MAINTENANT" data-ar="احجز الآن">RÉSERVER MAINTENANT</span>
+      <small>RÉSERVATION DIRECTE</small>
+    </button>
+  </div>
+  <div class="reserve-cta-right">
+    <img src="assets/images/entrance_night.jpg" alt="Entrée Le Marin" class="reserve-cta-img" />
+    <div class="reserve-cta-img-overlay"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     GALLERY SECTION (with Day/Night Effect)
+════════════════════════════════════════════════════════════ -->
+<section id="galerie" class="gallery-section">
+  <div class="gallery-header reveal">
+    <span class="section-eyebrow" data-fr="GALERIE PHOTOS" data-ar="معرض الصور">GALERIE PHOTOS</span>
+    <h2 class="section-heading" data-fr="Découvrez Le Marin" data-ar="اكتشف لو مارين">Découvrez <em>Le Marin</em></h2>
+
+    <!-- Day/Night Toggle for Gallery -->
+    <div class="gallery-controls reveal">
+      <div class="gallery-filter-btns">
+        <button class="gallery-filter-btn active" data-filter="all" data-fr="Tout" data-ar="الكل">Tout</button>
+        <button class="gallery-filter-btn" data-filter="ext" data-fr="Extérieur" data-ar="الخارج">Extérieur</button>
+        <button class="gallery-filter-btn" data-filter="rooms" data-fr="Chambres" data-ar="الغرف">Chambres</button>
+        <button class="gallery-filter-btn" data-filter="common" data-fr="Espaces Communs" data-ar="المناطق المشتركة">Espaces Communs</button>
+      </div>
+      <div class="day-night-slider-wrap">
+        <span class="dn-label">☀️ JOUR</span>
+        <input type="range" class="day-night-slider" id="dayNightSlider" min="0" max="100" value="100" />
+        <span class="dn-label">🌙 NUIT</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gallery Grid (filled by JS) -->
+  <div class="gallery-masonry" id="galleryGrid"></div>
+
+  <div class="gallery-cta reveal">
+    <button class="btn-discover" onclick="openAllPhotosModal()" data-fr="VOIR TOUTES LES PHOTOS" data-ar="عرض جميع الصور">VOIR TOUTES LES PHOTOS</button>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     FEATURES BAR (without Drone Experience)
+════════════════════════════════════════════════════════════ -->
+<section class="features-bar">
+  <div class="features-bar-inner">
+    <div class="feat-item">
+      <div class="feat-icon">📍</div>
+      <div class="feat-text">
+        <strong data-fr="GOOGLE MAPS" data-ar="خرائط جوجل">GOOGLE MAPS</strong>
+        <span data-fr="LOCALISATION" data-ar="الموقع">LOCALISATION</span>
+      </div>
+    </div>
+    <div class="feat-sep"></div>
+    <div class="feat-item">
+      <div class="feat-icon">🖼️</div>
+      <div class="feat-text">
+        <strong data-fr="GALERIE" data-ar="معرض">GALERIE</strong>
+        <span data-fr="30+ PHOTOS" data-ar="30+ صورة">30+ PHOTOS</span>
+      </div>
+    </div>
+    <div class="feat-sep"></div>
+    <div class="feat-item">
+      <div class="feat-icon">⭐</div>
+      <div class="feat-text">
+        <strong data-fr="AVIS CLIENTS" data-ar="آراء العملاء">AVIS CLIENTS</strong>
+        <span id="featAvgRating">5.0 ÉTOILES</span>
+      </div>
+    </div>
+    <div class="feat-sep"></div>
+    <div class="feat-item">
+      <div class="feat-icon">💎</div>
+      <div class="feat-text">
+        <strong data-fr="MEILLEUR PRIX" data-ar="أفضل سعر">MEILLEUR PRIX</strong>
+        <span data-fr="GARANTI" data-ar="مضمون">GARANTI</span>
+      </div>
+    </div>
+    <div class="feat-sep"></div>
+    <div class="feat-item">
+      <div class="feat-icon">🔒</div>
+      <div class="feat-text">
+        <strong data-fr="RÉSERVATION" data-ar="حجز">RÉSERVATION</strong>
+        <span data-fr="SÉCURISÉE" data-ar="آمن">SÉCURISÉE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     REVIEWS SECTION
+════════════════════════════════════════════════════════════ -->
+<section id="avis" class="reviews-section">
+  <div class="reviews-inner">
+    <div class="section-header reveal" style="text-align:center;margin-bottom:50px;">
+      <span class="section-eyebrow" data-fr="AVIS DE NOS CLIENTS" data-ar="آراء عملائنا">AVIS DE NOS CLIENTS</span>
+      <h2 class="section-heading" data-fr="Ce qu'ils disent de nous" data-ar="ما يقولونه عنا">Ce qu'ils <em>disent de nous</em></h2>
+      <div class="reviews-global-rating" id="reviewsGlobalRating">
+        <div class="global-stars" id="globalStars"></div>
+        <span class="global-score" id="globalScore">5.0</span>
+        <span class="global-label" data-fr="sur 5 · basé sur les avis clients" data-ar="من 5 · بناءً على آراء العملاء">sur 5 · basé sur les avis clients</span>
+      </div>
+    </div>
+
+    <!-- Reviews Carousel -->
+    <div class="reviews-carousel-wrap">
+      <button class="reviews-prev" id="reviewsPrev" aria-label="Précédent">‹</button>
+      <div class="reviews-carousel" id="reviewsCarousel">
+        <!-- Filled by JS -->
+      </div>
+      <button class="reviews-next" id="reviewsNext" aria-label="Suivant">›</button>
+    </div>
+
+    <!-- Leave a Review Form -->
+    <div class="add-review-section reveal">
+      <h3 class="add-review-title" data-fr="Laissez votre avis" data-ar="اترك تقييمك">Laissez votre <em>avis</em></h3>
+      <form class="review-form" id="reviewForm" onsubmit="submitReview(event)">
+        <div class="review-form-row">
+          <div class="form-group">
+            <label data-fr="Prénom" data-ar="الاسم">Prénom</label>
+            <input type="text" id="reviewPrenom" placeholder="Votre prénom" required />
+          </div>
+          <div class="form-group">
+            <label data-fr="Nom" data-ar="اللقب">Nom</label>
+            <input type="text" id="reviewNom" placeholder="Votre nom" />
+          </div>
+          <div class="form-group">
+            <label data-fr="Ville" data-ar="المدينة">Ville</label>
+            <input type="text" id="reviewVille" placeholder="Votre ville" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label data-fr="Note" data-ar="التقييم">Note</label>
+          <div class="star-rating" id="starRating">
+            <button type="button" class="star-btn" data-val="1">★</button>
+            <button type="button" class="star-btn" data-val="2">★</button>
+            <button type="button" class="star-btn" data-val="3">★</button>
+            <button type="button" class="star-btn" data-val="4">★</button>
+            <button type="button" class="star-btn" data-val="5">★</button>
+          </div>
+          <input type="hidden" id="reviewNote" value="5" required />
+        </div>
+        <div class="form-group">
+          <label data-fr="Votre avis" data-ar="رأيك">Votre avis</label>
+          <textarea id="reviewComment" rows="4" placeholder="Partagez votre expérience au Marin Hôtel..." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit-review" data-fr="Publier mon avis" data-ar="نشر رأيي">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+          Publier mon avis
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     LOCALISATION (FIXED MAPS LINK)
+════════════════════════════════════════════════════════════ -->
+<section id="localisation" class="location-section">
+  <div class="location-container">
+    <div class="location-info reveal">
+      <span class="section-eyebrow" data-fr="LOCALISATION" data-ar="الموقع">LOCALISATION</span>
+      <h2 class="section-heading" data-fr="Nous Trouver" data-ar="اعثر علينا">Nous <em>Trouver</em></h2>
+      <div class="loc-details">
+        <div class="loc-row">
+          <span class="loc-icon">📍</span>
+          <p data-fr="48 Cooperative Benzarga Houari, CAP Falcon, Commune d'Ain Turck, Oran, Algérie" data-ar="48 تعاونية بنزرقة الهواري، كاب فالكون، عين التراك، وهران، الجزائر">
+            48 Cooperative Benzarga Houari, CAP Falcon,<br/>Commune d'Ain Turck, Oran, Algérie
+          </p>
+        </div>
+        <div class="loc-row">
+          <span class="loc-icon">📞</span>
+          <div>
+            <a href="tel:+213552035894" class="loc-phone">+213 55 20 35 894</a>
+          </div>
+        </div>
+        <div class="loc-row">
+          <span class="loc-icon">💬</span>
+          <div>
+            <a href="https://wa.me/213552035894" target="_blank" class="loc-whatsapp">WhatsApp: 0552035894</a>
+          </div>
+        </div>
+        <div class="loc-row">
+          <span class="loc-icon">🕐</span>
+          <p data-fr="Ouvert 24h/24 – 7j/7" data-ar="مفتوح 24/24 – 7/7">Ouvert 24h/24 – 7j/7</p>
+        </div>
+      </div>
+      <!-- Direct Maps Button - USER's REAL LINK -->
+      <div class="maps-actions">
+        <a href="https://www.google.com/maps/search/Le+Marin+H%C3%B4tel+Ain+El+Turk+Oran" 
+           target="_blank" class="btn-maps" id="btnOpenMaps">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Ouvrir dans Google Maps
+        </a>
+        <a href="https://www.google.com/maps/dir//Le+Marin+H%C3%B4tel+Ain+El+Turk+Oran" 
+           target="_blank" class="btn-itinerary">
+          🧭 Obtenir l'Itinéraire
+        </a>
+      </div>
+    </div>
+    <div class="location-map reveal">
+      <div class="map-frame">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3254.8!2d-0.7994!3d35.7625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd7eff539ec1eb69%3A0x4f1f96e42aef9a36!2sLe%20Marin%20H%C3%B4tel!5e0!3m2!1sfr!2sdz!4v1717100000000"
+          width="100%" height="380" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Le Marin Hôtel – Ain El Turk, Oran">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CONTACT
+════════════════════════════════════════════════════════════ -->
+<section id="contact" class="contact-section">
+  <div class="contact-container">
+    <div class="contact-left reveal">
+      <span class="section-eyebrow" data-fr="CONTACTEZ-NOUS" data-ar="تواصل معنا">CONTACTEZ-NOUS</span>
+      <h2 class="section-heading" data-fr="Envoyez un Message" data-ar="أرسل رسالة">Envoyez un <em>Message</em></h2>
+      <form class="contact-form" onsubmit="submitContact(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label data-fr="Prénom" data-ar="الاسم">Prénom</label>
+            <input type="text" id="contactFirst" placeholder="Votre prénom" required />
+          </div>
+          <div class="form-group">
+            <label data-fr="Nom" data-ar="اللقب">Nom</label>
+            <input type="text" id="contactLast" placeholder="Votre nom" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label data-fr="Téléphone / WhatsApp" data-ar="الهاتف">Téléphone / WhatsApp</label>
+          <input type="tel" id="contactPhone" placeholder="+213 XX XX XX XX" />
+        </div>
+        <div class="form-group">
+          <label data-fr="Message" data-ar="الرسالة">Message</label>
+          <textarea id="contactMessage" rows="5" placeholder="Votre message..." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit" data-fr="Envoyer via WhatsApp" data-ar="أرسل عبر واتساب">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          Envoyer via WhatsApp
+        </button>
+      </form>
+    </div>
+    <div class="contact-right reveal">
+      <div class="contact-card">
+        <img src="assets/images/lobby_seating.jpg" alt="Lobby Le Marin" class="contact-card-img" />
+        <div class="contact-card-overlay"></div>
+        <div class="contact-card-body">
+          <h3 data-fr="Réservation Directe" data-ar="حجز مباشر">Réservation Directe</h3>
+          <a href="https://wa.me/213552035894?text=Bonjour%20Le%20Marin%20H%C3%B4tel!%20Je%20souhaite%20r%C3%A9server." target="_blank" class="btn-wa-big">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            <span>0552035894</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="assets/images/sailor_logo.png" alt="Le Marin" class="footer-sailor-img" width="34" height="34" />
+        <div>
+          <span class="footer-le">Le Marin</span>
+          <span class="footer-stars">★ ★</span>
+        </div>
+      </div>
+      <p class="footer-desc" data-fr="Hôtel 2 étoiles au bord de la Méditerranée, à Ain El Turk, Oran. Une expérience maritime inoubliable." data-ar="فندق نجمتين على شاطئ البحر الأبيض المتوسط في عين التراك، وهران. تجربة بحرية لا تُنسى.">
+        Hôtel 2 étoiles au bord de la Méditerranée, à Ain El Turk, Oran. Une expérience maritime inoubliable.
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4 data-fr="Navigation" data-ar="التصفح">Navigation</h4>
+      <ul>
+        <li><a href="#accueil"      data-fr="Accueil"      data-ar="الرئيسية">Accueil</a></li>
+        <li><a href="#services"     data-fr="Services"     data-ar="الخدمات">Services</a></li>
+        <li><a href="#chambres"     data-fr="Chambres"     data-ar="الغرف">Chambres</a></li>
+        <li><a href="#galerie"      data-fr="Galerie"      data-ar="المعرض">Galerie</a></li>
+        <li><a href="#avis"         data-fr="Avis"         data-ar="التقييمات">Avis</a></li>
+        <li><a href="#localisation" data-fr="Localisation" data-ar="الموقع">Localisation</a></li>
+        <li><a href="#contact"      data-fr="Contact"      data-ar="التواصل">Contact</a></li>
+        <li><a href="admin.html"    data-fr="Espace Admin" data-ar="لوحة الإدارة">Espace Admin</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 data-fr="Contact" data-ar="التواصل">Contact</h4>
+      <p>📍 Ain El Turk, Oran, Algérie</p>
+      <a href="tel:+213552035894" class="footer-link">📞 +213 55 20 35 894</a>
+      <a href="https://wa.me/213552035894" target="_blank" class="footer-link footer-wa">💬 WhatsApp: 0552035894</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 <span class="footer-name">Le Marin Hôtel</span> – Ain El Turk, Oran, Algérie. Tous droits réservés.</p>
+    <p class="footer-made" id="footerAdmin">Designed with ♥ for Le Marin</p>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════════════════════
+     FLOATING WHATSAPP
+════════════════════════════════════════════════════════════ -->
+<a href="https://wa.me/213552035894?text=Bonjour%20Le%20Marin%20H%C3%B4tel!" target="_blank" class="whatsapp-float" id="waFloat">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+  <div class="wa-pulse"></div>
+  <div class="wa-label">0552 03 58 94</div>
+</a>
+
+<!-- ════════════════════════════════════════════════════════════
+     BOOKING MODAL (CART SYSTEM)
+════════════════════════════════════════════════════════════ -->
+<div id="bookingModal" class="modal-overlay" style="display:none;">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeBookingModal()">✕</button>
+    <div class="modal-header">
+      <div class="modal-logo">LE MARIN HÔTEL ★★</div>
+      <h2 data-fr="Réservation" data-ar="الحجز">Réservation</h2>
+      <p class="modal-room-name" id="modalRoomName"></p>
+    </div>
+    <!-- CART SUMMARY -->
+    <div class="cart-summary" id="cartSummary" style="display:none;">
+      <div class="cart-item" id="cartItem">
+        <div class="cart-item-icon">🏨</div>
+        <div class="cart-item-info">
+          <span class="cart-type" id="cartType">–</span>
+          <span class="cart-dates" id="cartDates">–</span>
+        </div>
+        <div class="cart-item-price" id="cartPrice">–</div>
+      </div>
+    </div>
+    <form class="booking-form" onsubmit="submitBooking(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label data-fr="Prénom *" data-ar="الاسم *">Prénom *</label>
+          <input type="text" id="bFirstName" placeholder="Votre prénom" required />
+        </div>
+        <div class="form-group">
+          <label data-fr="Nom *" data-ar="اللقب *">Nom *</label>
+          <input type="text" id="bLastName" placeholder="Votre nom" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label data-fr="Téléphone *" data-ar="الهاتف *">Téléphone *</label>
+          <input type="tel" id="bPhone" placeholder="+213 XX XX XX XX" required />
+        </div>
+        <div class="form-group">
+          <label data-fr="Email" data-ar="البريد">Email</label>
+          <input type="email" id="bEmail" placeholder="email@exemple.com" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label data-fr="Date d'arrivée *" data-ar="تاريخ الوصول *">Date d'arrivée *</label>
+          <input type="date" id="bCheckIn" required />
+        </div>
+        <div class="form-group">
+          <label data-fr="Date de départ *" data-ar="تاريخ المغادرة *">Date de départ *</label>
+          <input type="date" id="bCheckOut" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label data-fr="Type de chambre" data-ar="نوع الغرفة">Type de chambre</label>
+          <select id="bRoomType">
+            <option value="Chambre Double">Chambre Double – 7 000 DA / Nuit</option>
+            <option value="Suite">Suite – 9 000 DA / Nuit</option>
+            <option value="Suite Supérieure">Suite Supérieure – 14 000 DA / Nuit</option>
+            <option value="Appartement">Appartement – 15 000 DA / Nuit</option>
+            <option value="Suite Royale">Suite Royale – 25 000 DA / Nuit</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-fr="Personnes" data-ar="الأشخاص">Personnes</label>
+          <select id="bGuests">
+            <option value="1">1 Personne</option>
+            <option value="2" selected>2 Personnes</option>
+            <option value="3">3 Personnes</option>
+            <option value="4">4 Personnes</option>
+            <option value="5+">5+ Personnes</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label data-fr="Demandes spéciales" data-ar="طلبات خاصة">Demandes spéciales</label>
+        <textarea id="bRequests" rows="2" placeholder="Vue mer, lit bébé, arrivée tardive..."></textarea>
+      </div>
+      <!-- Live price calculator -->
+      <div class="booking-summary-box" id="bookingSummary"></div>
+      <div class="booking-actions">
+        <button type="submit" class="btn-submit btn-primary-full" data-fr="Confirmer la Réservation" data-ar="تأكيد الحجز">✓ Confirmer la Réservation</button>
+        <button type="button" class="btn-wa-modal" onclick="whatsappFromModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          Réserver par WhatsApp
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Booking Success Modal -->
+<div id="bookingSuccess" class="modal-overlay" style="display:none;">
+  <div class="modal-box success-box">
+    <button class="modal-close" onclick="document.getElementById('bookingSuccess').style.display='none'">✕</button>
+    <div class="success-check">✓</div>
+    <h2 data-fr="Réservation Confirmée!" data-ar="تم الحجز!">Réservation Confirmée!</h2>
+    <p id="successMessage">Votre réservation a été enregistrée.</p>
+    <div class="success-id" id="successId"></div>
+    <a href="https://wa.me/213552035894" target="_blank" class="btn-wa-big" style="margin-top:20px;">
+      Confirmer sur WhatsApp
+    </a>
+  </div>
+</div>
+
+<!-- All Photos Modal -->
+<div id="allPhotosModal" class="modal-overlay modal-fullscreen" style="display:none;">
+  <div class="modal-box modal-gallery-box">
+    <button class="modal-close" onclick="document.getElementById('allPhotosModal').style.display='none'">✕</button>
+    <h2 style="font-family:var(--font-serif);color:var(--gold);margin-bottom:24px;">Toutes nos Photos</h2>
+    <div class="all-photos-grid" id="allPhotosGrid"></div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-prev" onclick="prevLight()">‹</button>
+  <img src="" alt="" id="lightboxImg" class="lightbox-img" />
+  <p id="lightboxCaption" class="lightbox-caption"></p>
+  <span id="lightboxCounter" class="lightbox-counter"></span>
+  <button class="lightbox-next" onclick="nextLight()">›</button>
+</div>
+
+<!-- Scripts -->
+<script src="db.js?v=2"></script>
+<script src="app.js?v=2"></script>
+</body>
+</html>
