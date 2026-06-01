@@ -9,6 +9,7 @@
     "build": "esbuild src/client/**/*.js --bundle --outdir=public/js --minify",
     "vercel-build": "echo \"skip\"",
     "start": "node src/server/index.js",
+    "docker-build": "docker build -t le-marin-hotel .",
     "test": "jest",
     "cypress": "cypress open"
   },
