@@ -29,8 +29,8 @@ const PHOTOS = {
   breakfast:       'assets/images/breakfast.jpg',
 };
 
-// User's real gallery photos (from C:\Users\HP\Pictures\Saved Pictures\30052026)
-const USER_PHOTOS = [
+// User's real gallery photos (generated at build/deploy time if available)
+let USER_PHOTOS = [
   'assets/images/gallery/031f8414-8dda-40a0-831f-cd64db0c2a82.jfif',
   'assets/images/gallery/39efeac4-a0b2-470d-b332-f7f81612a14e.jfif',
   'assets/images/gallery/611888cd-b89c-4c8b-a359-b7fb278e5488.jfif',
@@ -42,6 +42,13 @@ const USER_PHOTOS = [
   'assets/images/gallery/a792cb6e-6401-41ac-812b-43d04d8dd62f.jfif',
   'assets/images/gallery/ba03e2b9-fc76-4b0c-94a6-f32de04267ac.jfif',
 ];
+
+// If a generated gallery file is present, prefer it (script injects window.GENERATED_GALLERY before app.js)
+try {
+  if (window.GENERATED_GALLERY && Array.isArray(window.GENERATED_GALLERY.userPhotos) && window.GENERATED_GALLERY.userPhotos.length) {
+    USER_PHOTOS = window.GENERATED_GALLERY.userPhotos.slice();
+  }
+} catch (e) {}
 
 // Combined gallery: user's real photos first, then hotel stock photos
 const GALLERY_IMAGES = [

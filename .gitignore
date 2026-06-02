@@ -9,11 +9,4 @@ lemarin-hotel.bundle
 lemarin-hotel.zip
 
 # Media files — store separately on CDN/cloud storage
-assets/video/
-assets/images/gallery/
 public/media/
-public/assets/video/
-public/assets/images/gallery/
-*.mp4
-*.MOV
-*.jfif
