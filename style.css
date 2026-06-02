@@ -213,10 +213,17 @@ button{cursor:pointer;border:none;background:none;font-family:var(--sans)}
   background:linear-gradient(to bottom,rgba(3,5,8,0.3) 0%,rgba(3,5,8,0.05) 40%,rgba(3,5,8,0.7) 80%,rgba(3,5,8,0.97) 100%);
 }
 .hero-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 25%,rgba(3,5,8,0.75) 100%);pointer-events:none}
-.hero-scanlines{
-  position:absolute;inset:0;pointer-events:none;opacity:0.04;
-  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.8) 2px,rgba(255,255,255,0.8) 4px);
+.hero-sunrays{
+  position:absolute;inset:0;pointer-events:none;opacity:0.6;mix-blend-mode:screen;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(255,240,200,0.14), transparent 20%),
+    repeating-conic-gradient(from 320deg, rgba(255,235,170,0.02) 0deg 8deg, transparent 8deg 16deg);
+  filter: blur(16px);
 }
+
+/* ensure parallax/background images are visible */
+.parallax-img{opacity:1!important;filter:none!important}
+
 
 .scroll-hint-top{
   position:absolute;top:calc(var(--nav-h) + 20px);left:50%;transform:translateX(-50%);

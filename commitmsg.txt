@@ -1,0 +1,3 @@
+﻿Include gallery media; auto-generate gallery index; remove ignores for assets/video and gallery
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>

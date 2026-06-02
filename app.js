@@ -52,7 +52,7 @@ try {
 
 // Combined gallery: user's real photos first, then hotel stock photos
 const GALLERY_IMAGES = [
-  { src: 'assets/images/gallery/IMG_1827.MOV', caption: 'Vidéo – Le Marin Hôtel', isVideo: true },
+  { src: 'assets/video/gallery.mp4', caption: 'Vidéo – Le Marin Hôtel', isVideo: true },
   { src: USER_PHOTOS[0],           caption: 'Le Marin – Photo Réelle' },
   { src: USER_PHOTOS[1],           caption: 'Le Marin – Photo Réelle' },
   { src: USER_PHOTOS[2],           caption: 'Le Marin – Photo Réelle' },
@@ -168,6 +168,19 @@ const SFX = (() => {
   }
 
   return { doorChime, click, whoosh, toggle, isEnabled: () => soundEnabled };
+})();
+
+// If audio files are present in assets/audio/, prefer them over synths
+(function(){
+  try {
+    const door = new Audio('assets/audio/door.mp3');
+    const clickA = new Audio('assets/audio/click.mp3');
+    const whooshA = new Audio('assets/audio/whoosh.mp3');
+    // small feature-detect: if file loads, replace functions
+    door.addEventListener('canplay', () => { SFX.doorChime = () => { try{ door.currentTime=0; door.play().catch(()=>{}); }catch(e){} }; });
+    clickA.addEventListener('canplay', () => { SFX.click = () => { try{ clickA.currentTime=0; clickA.play().catch(()=>{}); }catch(e){} }; });
+    whooshA.addEventListener('canplay', () => { SFX.whoosh = () => { try{ whooshA.currentTime=0; whooshA.play().catch(()=>{}); }catch(e){} }; });
+  } catch(e){}
 })();
 
 // ─── AMBIENT MUSIC ENGINE ─────────────────────────────────
