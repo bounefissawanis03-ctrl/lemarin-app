@@ -10,3 +10,10 @@ assets/images/gallery/*.MOV
 assets/images/gallery/*.mov
 public/assets/**/*.MOV
 public/assets/**/*.mov
+
+# Local Netlify folder
+.netlify
+
+# Admin credentials (local only)
+admin-credentials.json
+setup-admins.js

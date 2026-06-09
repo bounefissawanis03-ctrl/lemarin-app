@@ -160,8 +160,8 @@ const LM_DB = (() => {
   // ADMIN AUTHENTICATION
   // ═══════════════════════════════════════════════════════════
   const DEFAULT_ADMINS = [
-    { id: 'admin-1', username: 'admin', passwordHash: simpleHash('lemarin2025'), nom: 'Administrateur', role: 'super' },
-    { id: 'admin-2', username: 'reception', passwordHash: simpleHash('marin123'), nom: 'Réception', role: 'staff' },
+    // Admin accounts moved to server database for security
+    // Use /api/admins/login endpoint instead
   ];
 
   const Auth = {
